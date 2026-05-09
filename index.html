@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Village AI — Empowering Rural Potential</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:   #1B6B3A;
+      --green-d: #0F4524;
+      --green-l: #2D9355;
+      --gold:    #D4960A;
+      --gold-l:  #F5B731;
+      --cream:   #FAF7F2;
+      --warm:    #F2EDE4;
+      --ink:     #1A1A18;
+      --muted:   #6B6B60;
+      --white:   #FFFFFF;
+      --radius:  14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--warm); }
+    ::-webkit-scrollbar-thumb { background: var(--green); border-radius: 3px; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw;
+      height: 68px;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(27,107,58,0.12);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 32px rgba(27,107,58,0.1); }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px; text-decoration: none;
+    }
+    .nav-logo-mark {
+      width: 12px; height: 12px; background: var(--green);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700;
+      color: var(--gold-l); letter-spacing: -1px;
+    }
+
+    .village-ai-logo {
+      width: 250px;
+      height: 80px;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: 14px; font-weight: 500;
+      color: var(--muted); transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--green); }
+    .nav-cta {
+      background: var(--green); color: var(--white) !important;
+      padding: 8px 20px; border-radius: 100px; font-weight: 600 !important;
+      transition: background .2s, transform .15s !important;
+    }
+    .nav-cta:hover { background: var(--green-l) !important; transform: translateY(-1px); }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 2px; transition: .3s; }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 100px 5vw 60px;
+      gap: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 80% 50%, rgba(27,107,58,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 10% 80%, rgba(212,150,10,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(27,107,58,0.1); color: var(--green);
+      padding: 6px 14px; border-radius: 100px;
+      font-size: 12px; font-weight: 600; letter-spacing: .5px;
+      text-transform: uppercase; margin-bottom: 24px;
+      border: 1px solid rgba(27,107,58,0.2);
+      opacity: 0; animation: fadeUp .6s .1s forwards;
+    }
+    .hero-badge::before { content: '●'; font-size: 8px; color: var(--gold); }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 5vw, 68px);
+      font-weight: 900; line-height: 1.1;
+      color: var(--ink); margin-bottom: 24px;
+      opacity: 0; animation: fadeUp .6s .2s forwards;
+    }
+    .hero-title .accent { color: var(--green); }
+    .hero-title .underline {
+      position: relative; display: inline-block;
+    }
+    .hero-title .underline::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0; right: 0; height: 4px;
+      background: var(--gold); border-radius: 2px;
+    }
+
+    .hero-sub {
+      font-size: 17px; line-height: 1.7; color: var(--muted);
+      max-width: 480px; margin-bottom: 40px;
+      opacity: 0; animation: fadeUp .6s .3s forwards;
+    }
+
+    .hero-buttons {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp .6s .4s forwards;
+    }
+    .btn-primary {
+      background: var(--green); color: var(--white);
+      padding: 14px 32px; border-radius: 100px;
+      font-size: 15px; font-weight: 600; text-decoration: none;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(27,107,58,0.3);
+    }
+    .btn-primary:hover {
+      background: var(--green-l); transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(27,107,58,0.35);
+    }
+    .btn-secondary {
+      background: transparent; color: var(--ink);
+      padding: 14px 28px; border-radius: 100px;
+      font-size: 15px; font-weight: 500; text-decoration: none;
+      border: 1.5px solid rgba(26,26,24,0.2);
+      transition: border-color .2s, transform .15s;
+    }
+    .btn-secondary:hover { border-color: var(--green); color: var(--green); transform: translateY(-2px); }
+
+    /* Hero visual */
+    .hero-visual {
+      position: relative; opacity: 0;
+      animation: fadeIn .8s .5s forwards;
+    }
+    .hero-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 36px;
+      box-shadow: 0 24px 80px rgba(26,26,24,0.12);
+      position: relative; z-index: 2;
+    }
+    .hero-card-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 20px;
+    }
+    .grade-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 10px;
+      margin-bottom: 24px;
+    }
+    .grade-pill {
+      background: var(--warm); border-radius: 10px;
+      padding: 10px 8px; text-align: center;
+      font-size: 13px; font-weight: 600; color: var(--green-d);
+      transition: background .2s, transform .2s;
+    }
+    .grade-pill:hover { background: rgba(27,107,58,0.12); transform: scale(1.04); }
+    .grade-pill span { display: block; font-size: 10px; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
+      background: var(--warm); border-radius: 12px; overflow: hidden;
+    }
+    .hero-stat {
+      background: var(--white); padding: 14px 10px; text-align: center;
+    }
+    .hero-stat-num {
+      font-family: 'Space Mono', monospace; font-size: 20px;
+      font-weight: 700; color: var(--green); display: block;
+    }
+    .hero-stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    .float-badge {
+      position: absolute; background: var(--gold);
+      color: var(--ink); padding: 10px 16px; border-radius: 12px;
+      font-size: 12px; font-weight: 700; box-shadow: 0 8px 24px rgba(212,150,10,0.3);
+      white-space: nowrap;
+      animation: float 3s ease-in-out infinite;
+    }
+    .float-badge-1 { top: -50px; right: -16px; }
+    .float-badge-2 { bottom: -55px; left: -16px; animation-delay: -1.5s; background: var(--green); color: var(--white); }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* ─── TRUST BAR ─── */
+    .trust-bar {
+      background: var(--green-d);
+      padding: 20px 5vw;
+      display: flex; align-items: center; justify-content: center;
+      gap: 48px; flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 10px;
+      color: rgba(255,255,255,0.75); font-size: 13px; font-weight: 500;
+    }
+    .trust-item svg { opacity: .6; }
+    .trust-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.15); }
+
+    /* ─── SECTIONS COMMON ─── */
+    section { padding: 96px 5vw; }
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 12px; display: block;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3.5vw, 46px); font-weight: 900;
+      line-height: 1.15; color: var(--ink); margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 16px; color: var(--muted); line-height: 1.7;
+      max-width: 560px;
+    }
+    .section-header { margin-bottom: 60px; }
+
+    /* ─── PROBLEM SECTION ─── */
+    .problem { background: var(--green-d); color: var(--white); }
+    .problem .section-title { color: var(--white); }
+    .problem .section-sub { color: rgba(255,255,255,0.65); }
+    .problem .section-label { color: var(--gold-l); }
+
+    .problem-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .problem-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius); padding: 32px;
+      transition: background .2s, transform .2s;
+    }
+    .problem-card:hover { background: rgba(255,255,255,0.11); transform: translateY(-4px); }
+    .problem-icon {
+      font-size: 32px; margin-bottom: 16px; display: block;
+    }
+    .problem-card h3 {
+      font-family: 'Playfair Display', serif; font-size: 20px;
+      font-weight: 700; color: var(--white); margin-bottom: 10px;
+    }
+    .problem-card p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; }
+
+    /* ─── SOLUTION / IFSAI ─── */
+    .ifsai-layout {
+      display: inline; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .pillar-list { display: flex; flex-direction: column; gap: 20px; margin-top: 40px; }
+    .pillar {
+      display: flex; gap: 18px; align-items: flex-start;
+      padding: 20px; border-radius: var(--radius);
+      background: var(--white); border: 1px solid rgba(27,107,58,0.1);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .pillar:hover { transform: translateX(6px); box-shadow: 0 8px 32px rgba(27,107,58,0.1); }
+    .pillar-icon {
+      width: 48px; height: 48px; min-width: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; font-size: 22px;
+    }
+    .pillar-icon.tech { background: rgba(27,107,58,0.1); }
+    .pillar-icon.comm { background: rgba(212,150,10,0.12); }
+    .pillar-icon.prac { background: rgba(59,130,246,0.1); }
+    .pillar h4 { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+    .pillar p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* IFSAI visual side */
+    .ifsai-visual { position: relative; }
+    .ifsai-big-card {
+      background: var(--white); border-radius: 24px;
+      box-shadow: 0 24px 80px rgba(26,26,24,0.1);
+      overflow: hidden;
+    }
+    .ifsai-card-header {
+      background: var(--green); padding: 28px 32px;
+    }
+    .ifsai-card-header h3 {
+      font-family: 'Playfair Display', serif; font-size: 22px;
+      font-weight: 700; color: var(--white); margin-bottom: 4px;
+    }
+    .ifsai-card-header p { font-size: 13px; color: rgba(255,255,255,0.7); }
+    .ifsai-card-body { padding: 28px 32px; }
+    .chapter-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 10px 0; border-bottom: 1px solid var(--warm);
+    }
+    .chapter-row:last-child { border-bottom: none; }
+    .chapter-num {
+      font-family: 'Space Mono', monospace; font-size: 11px;
+      font-weight: 700; color: var(--muted); min-width: 32px;
+    }
+    .chapter-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green); min-width: 8px;
+    }
+    .chapter-title { font-size: 13px; font-weight: 500; color: var(--ink); }
+    .chapter-badge {
+      margin-left: auto; font-size: 10px; font-weight: 600;
+      background: rgba(27,107,58,0.1); color: var(--green);
+      padding: 3px 8px; border-radius: 100px;
+    }
+
+    /* ─── GRADES ─── */
+    .grades { background: var(--warm); }
+    .grades-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .grade-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 28px 24px; border: 1px solid rgba(26,26,24,0.07);
+      transition: transform .2s, box-shadow .2s, border-color .2s;
+      cursor: default;
+    }
+    .grade-card:hover {
+      transform: translateY(-6px); border-color: var(--green);
+      box-shadow: 0 16px 48px rgba(27,107,58,0.12);
+    }
+    .grade-card-num {
+      font-family: 'Space Mono', monospace; font-size: 13px;
+      font-weight: 700; color: var(--muted); margin-bottom: 10px;
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    .grade-card-name {
+      font-family: 'Playfair Display', serif; font-size: 18px;
+      font-weight: 700; color: var(--ink); margin-bottom: 10px;
+    }
+    .grade-card-tag {
+      display: inline-block; font-size: 11px; font-weight: 600;
+      padding: 4px 10px; border-radius: 100px; margin-bottom: 14px;
+    }
+    .tag-green { background: rgba(27,107,58,0.1); color: var(--green); }
+    .tag-gold { background: rgba(212,150,10,0.12); color: var(--gold); }
+    .tag-blue { background: rgba(59,130,246,0.1); color: #2563EB; }
+    .grade-card-topics { list-style: none; }
+    .grade-card-topics li {
+      font-size: 12px; color: var(--muted); padding: 3px 0;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .grade-card-topics li::before { content: '→'; color: var(--green); font-size: 11px; }
+
+    /* ─── HOW IT WORKS ─── */
+    .how {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .steps { display: flex; flex-direction: column; gap: 0; }
+    .step { display: flex; gap: 20px; padding: 24px 0; position: relative; }
+    .step:not(:last-child)::after {
+      content: ''; position: absolute;
+      left: 19px; top: 72px; bottom: 0; width: 2px;
+      background: linear-gradient(to bottom, var(--green), transparent);
+    }
+    .step-num {
+      width: 40px; height: 40px; min-width: 40px; border-radius: 50%;
+      background: var(--green); color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700;
+      position: relative; z-index: 1;
+    }
+    .step h4 { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+    .step p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    .how-visual { display: flex; flex-direction: column; gap: 16px; }
+    .model-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 24px; border: 1px solid rgba(26,26,24,0.07);
+    }
+    .model-card-title {
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; color: var(--muted); margin-bottom: 14px;
+    }
+    .model-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0; font-size: 14px;
+    }
+    .model-row:not(:last-child) { border-bottom: 1px solid var(--warm); }
+    .model-row-label { color: var(--muted); }
+    .model-row-value { font-weight: 600; color: var(--ink); }
+    .model-row-badge {
+      font-size: 11px; font-weight: 600; padding: 3px 10px;
+      border-radius: 100px; background: rgba(27,107,58,0.1); color: var(--green);
+    }
+
+    /* ─── SEMINARS ─── */
+    .seminars { background: var(--green-d); }
+    .seminars .section-title { color: var(--white); }
+    .seminars .section-sub { color: rgba(255,255,255,0.65); }
+    .seminars .section-label { color: var(--gold-l); }
+    .seminar-logos {
+      display: flex; flex-wrap: wrap; gap: 16px;
+      margin-top: 48px;
+    }
+    .seminar-logo {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px; padding: 14px 24px;
+      font-size: 15px; font-weight: 700; color: var(--white);
+      letter-spacing: .5px; transition: background .2s, transform .2s;
+    }
+    .seminar-logo:hover { background: rgba(255,255,255,0.18); transform: translateY(-3px); }
+
+    .seminar-callout {
+      margin-top: 48px;
+      background: rgba(212,150,10,0.15); border: 1px solid rgba(212,150,10,0.3);
+      border-radius: var(--radius); padding: 28px 32px;
+      display: flex; align-items: center; gap: 20px;
+    }
+    .seminar-callout-icon { font-size: 40px; }
+    .seminar-callout h4 { font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .seminar-callout p { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+    /* ─── CERTIFICATE ─── */
+    .cert-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .cert-visual {
+      background: var(--white); border-radius: 20px;
+      padding: 40px; box-shadow: 0 24px 80px rgba(26,26,24,0.1);
+      border: 3px solid var(--warm); position: relative; overflow: hidden;
+    }
+    .cert-visual::before {
+      content: '';
+      position: absolute; inset: 8px;
+      border: 1.5px dashed rgba(27,107,58,0.2); border-radius: 14px;
+      pointer-events: none;
+    }
+    .cert-header { text-align: center; margin-bottom: 24px; }
+    .cert-org {
+      font-size: 11px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .cert-title-big {
+      font-family: 'Playfair Display', serif; font-size: 26px;
+      font-weight: 900; color: var(--green-d); margin: 8px 0 4px;
+    }
+    .cert-subtitle { font-size: 12px; color: var(--muted); }
+    .cert-divider {
+      height: 2px; background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 20px 0;
+    }
+    .cert-body { text-align: center; }
+    .cert-body p { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+    .cert-name {
+      font-family: 'Playfair Display', serif; font-size: 28px;
+      font-weight: 700; color: var(--ink); margin: 12px 0;
+      border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 4px;
+    }
+    .cert-programme { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    .cert-footer {
+      display: flex; justify-content: space-between; margin-top: 24px;
+    }
+    .cert-seal {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--green); display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700;
+      color: var(--white); text-align: center; line-height: 1.3; padding: 4px;
+    }
+
+    /* ─── FOR SCHOOLS ─── */
+    .schools { background: var(--warm); }
+    .benefits-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .benefit-card {
+      background: var(--white); border-radius: var(--radius); padding: 32px;
+      border: 1px solid rgba(26,26,24,0.07);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .benefit-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(26,26,24,0.08); }
+    .benefit-icon {
+      font-size: 32px; margin-bottom: 16px; display: block;
+    }
+    .benefit-card h3 { font-size: 17px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+    .benefit-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    /* ─── CONTACT ─── */
+    .contact { background: var(--green-d); }
+    .contact .section-title { color: var(--white); }
+    .contact .section-sub { color: rgba(255,255,255,0.65); }
+    .contact .section-label { color: var(--gold-l); }
+
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+    }
+    .contact-form-wrap {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px; padding: 36px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block; font-size: 12px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .5px;
+      color: rgba(255,255,255,0.6); margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15); border-radius: 10px;
+      padding: 12px 16px; font-size: 15px; font-family: 'DM Sans', sans-serif;
+      color: var(--white); outline: none; transition: border-color .2s;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--gold-l); }
+    .form-group select option { background: var(--green-d); color: var(--white); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .btn-submit {
+      width: 100%; background: var(--gold); color: var(--ink);
+      padding: 14px; border: none; border-radius: 100px;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: background .2s, transform .15s;
+    }
+    .btn-submit:hover { background: var(--gold-l); transform: translateY(-2px); }
+
+    .contact-info { padding-top: 8px; }
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif; font-size: 26px;
+      font-weight: 700; color: var(--white); margin-bottom: 16px;
+    }
+    .contact-info p { font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 32px; }
+    .contact-detail {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .contact-detail:last-child { border-bottom: none; }
+    .contact-detail-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(255,255,255,0.1); display: flex;
+      align-items: center; justify-content: center; font-size: 18px;
+      min-width: 40px;
+    }
+    .contact-detail-label { font-size: 11px; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: .5px; }
+    .contact-detail-value { font-size: 14px; color: var(--white); font-weight: 500; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #0A2E16; padding: 40px 5vw;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 20px;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif; font-size: 20px;
+      font-weight: 700; color: var(--white);
+    }
+    .footer-logo span { color: var(--gold-l); }
+    .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+    .footer-copy { font-size: 13px; color: rgba(255,255,255,0.35); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity .6s, transform .6s;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── SUCCESS MESSAGE ─── */
+    .form-success {
+      display: none; text-align: center; padding: 40px 20px;
+    }
+    .form-success.show { display: block; }
+    .form-success-icon { font-size: 56px; margin-bottom: 16px; display: block; }
+    .form-success h3 { font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .form-success p { font-size: 14px; color: rgba(255,255,255,0.6); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding-top: 96px; }
+      .hero-sub { margin: 0 auto 40px; }
+      .hero-buttons { justify-content: center; }
+      .hero-visual { max-width: 480px; margin: 0 auto; }
+      .ifsai-layout, .how, .cert-layout, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .nav-links { display: none; flex-direction: column; position: fixed; top: 68px; left: 0; right: 0; background: var(--cream); padding: 20px; box-shadow: 0 8px 32px rgba(0,0,0,.1); gap: 4px; }
+      .nav-links.open { display: flex; }
+      .nav-links li { padding: 4px 0; }
+      .hamburger { display: flex; }
+      .trust-divider { display: none; }
+      .trust-bar { gap: 24px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 64px 5vw; }
+      .grade-grid { grid-template-columns: repeat(3,1fr); }
+      .hero-title { font-size: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a class="nav-logo" href="#">
+      <img class="village-ai-logo" src="D:\OneDrive\Desktop\Village AI Logo.png" alt="logo">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#programme">Programme</a></li>
+      <li><a href="#grades">Grades</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#seminars">Seminars</a></li>
+      <li><a href="#schools">For Schools</a></li>
+      <li><a href="#contact" class="nav-cta">Partner With Us</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="hero-badge">Pilot Programme — Now Enrolling Schools</div>
+      <h1 class="hero-title">
+        Future Skills for<br>
+        <span class="accent">Every</span> Rural<br>
+        <span class="underline">Child in India</span>
+      </h1>
+      <p class="hero-sub">
+        Village AI brings AI education, coding, and professional skills directly into rural school classrooms — through the IFSAI Programme for Grades 1 to 9.
+      </p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn-primary">Partner With Your School</a>
+        <a href="#programme" class="btn-secondary">Learn About IFSAI →</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-card-label">IFSAI Programme — Grades Covered</div>
+        <div class="grade-grid">
+          <div class="grade-pill">Grade 1<span>Digital Foundations</span></div>
+          <div class="grade-pill">Grade 2<span>Digital Explorers</span></div>
+          <div class="grade-pill">Grade 3<span>Tech Creators</span></div>
+          <div class="grade-pill">Grade 4<span>Python Beginners</span></div>
+          <div class="grade-pill">Grade 5<span>Python Intermediate</span></div>
+          <div class="grade-pill">Grade 6<span>Data & AI</span></div>
+          <div class="grade-pill">Grade 7<span>Web & Apps</span></div>
+          <div class="grade-pill">Grade 8<span>Applied AI</span></div>
+          <div class="grade-pill">Grade 9<span>Capstone</span></div>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="hero-stat-num">9</span>
+            <div class="hero-stat-label">Grade Levels</div>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">72+</span>
+            <div class="hero-stat-label">Chapter Lessons</div>
+          </div>
+          <div class="hero-stat">
+            <span class="hero-stat-num">0</span>
+            <div class="hero-stat-label">Extra Periods</div>
+          </div>
+        </div>
+      </div>
+      <div class="float-badge float-badge-1">🏆 Industry Seminars Included</div>
+      <div class="float-badge float-badge-2">✅ No Extra Period Needed</div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Integrated into existing school timetable
+    </div>
+    <div class="trust-divider"></div>
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      Zero disruption to school schedule
+    </div>
+    <div class="trust-divider"></div>
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Trained IFSAI teacher deployed to school
+    </div>
+    <div class="trust-divider"></div>
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      Works offline — 1 device per 3 students
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <section class="problem" id="why">
+    <div class="section-header reveal">
+      <span class="section-label">The Problem</span>
+      <h2 class="section-title">The skills gap is growing.<br>Rural children are falling behind.</h2>
+      <p class="section-sub">City schools have coding labs, AI tools, and industry connections. Most rural schools have none of this. Village AI exists to close that gap — permanently.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <span class="problem-icon">🏙️</span>
+        <h3>City vs Village Gap</h3>
+        <p>Children in urban India are learning Python, AI, and data science from Grade 3. Rural children are still learning basic MS Paint. The gap widens every year.</p>
+      </div>
+      <div class="problem-card reveal">
+        <span class="problem-icon">💼</span>
+        <h3>Jobs Require New Skills</h3>
+        <p>The fastest-growing jobs in India — in tech, data, AI, and digital services — require skills that rural students are simply never taught. Not because they cannot learn. Because no one taught them.</p>
+      </div>
+      <div class="problem-card reveal">
+        <span class="problem-icon">🧑‍🏫</span>
+        <h3>No Trained Teachers</h3>
+        <p>Rural schools want to upgrade. But qualified computer and AI teachers are concentrated in cities. Schools cannot hire what is not available.</p>
+      </div>
+      <div class="problem-card reveal">
+        <span class="problem-icon">📱</span>
+        <h3>Awareness is Missing</h3>
+        <p>Parents and principals in rural areas have not been shown what AI is, why it matters, and how it will affect their children's futures. The conversation has not reached them yet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- IFSAI PROGRAMME -->
+  <section id="programme" style="background: var(--cream);">
+    <div class="ifsai-layout">
+      <div>
+        <div class="section-header reveal">
+          <span class="section-label">The IFSAI Programme</span>
+          <h2 class="section-title">Integrated Future Skills & AI Curriculum</h2>
+          <p class="section-sub">A structured, complete curriculum for Grades 1–9 built specifically for rural Indian schools. Three pillars. Nine grade levels. One connected journey.</p>
+        </div>
+        <div class="pillar-list">
+          <div class="pillar reveal">
+            <div class="pillar-icon tech">💻</div>
+            <div>
+              <h4>Technology</h4>
+              <p>Coding with Scratch and Python, computational thinking, AI awareness, data literacy, and applied digital tools.</p>
+            </div>
+          </div>
+          <div class="pillar reveal">
+            <div class="pillar-icon comm">🗣️</div>
+            <div>
+              <h4>Communication</h4>
+              <p>English speaking confidence, structured presentations, project pitches, and professional communication skills.</p>
+            </div>
+          </div>
+          <div class="pillar reveal">
+            <div class="pillar-icon prac">🔨</div>
+            <div>
+              <h4>Practical Learning</h4>
+              <p>Project-based education where students build real things, solve real problems, and present to real audiences.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRADES -->
+  <section class="grades" id="grades">
+    <div class="section-header reveal">
+      <span class="section-label">Grade-by-Grade Journey</span>
+      <h2 class="section-title">Nine years. One connected learning path.</h2>
+      <p class="section-sub">Every grade builds on the one before it. A child who joins in Grade 1 graduates Grade 9 ready to enter any technology field — or build their own.</p>
+    </div>
+    <div class="grades-grid">
+      <div class="grade-card reveal">
+        <div class="grade-card-num">Grade 1</div>
+        <div class="grade-card-name">Digital Foundations</div>
+        <span class="grade-card-tag tag-green">🌱 Beginner</span>
+        <ul class="grade-card-topics">
+          <li>Parts of a computer</li>
+          <li>Input and Output</li>
+          <li>IF-THEN decisions</li>
+          <li>What is AI?</li>
+          <li>Digital safety</li>
+        </ul>
+      </div>
+      <div class="grade-card reveal">
+        <div class="grade-card-num">Grade 2</div>
+        <div class="grade-card-name">Digital Explorers</div>
+        <span class="grade-card-tag tag-green">🔭 Foundation</span>
+        <ul class="grade-card-topics">
+          <li>Algorithms</li>
+          <li>Loops and Patterns</li>
+          <li>Machine Learning basics</li>
+          <li>Typing skills</li>
+          <li>Digital citizenship</li>
+        </ul>
+      </div>
+      <div class="grade-card reveal">
+        <div class="grade-card-num">Grade 3</div>
+        <div class="grade-card-name">Tech Creators</div>
+        <span class="grade-card-tag tag-gold">🛠️ Creator</span>
+        <ul class="grade-card-topics">
+          <li>Scratch programming</li>
+          <li>Sprites & animations</li>
+          <li>Conditionals & variables</li>
+          <li>AI ethics & fairness</li>
+          <li>MS Word</li>
+        </ul>
+      </div>
+      <div class="grade-card reveal">
+        <div class="grade-card-num">Grade 4</div>
+        <div class="grade-card-name">Python Beginners</div>
+        <span class="grade-card-tag tag-gold">🐍 Coder</span>
+        <ul class="grade-card-topics">
+          <li>Python: print, variables</li>
+          <li>Data types</li>
+          <li>Conditions & loops</li>
+          <li>Functions</li>
+          <li>MS Excel</li>
+        </ul>
+      </div>
+      <div class="grade-card reveal">
+        <div class="grade-card-num">Grade 5</div>
+        <div class="grade-card-name">Python Intermediate</div>
+        <span class="grade-card-tag tag-gold">🐍 Builder</span>
+        <ul class="grade-card-topics">
+          <li>Lists & Dictionaries</li>
+          <li>File handling</li>
+          <li>Modules & libraries</li>
+          <li>Mini projects</li>
+          <li>MS PowerPoint</li>
+        </ul>
+      </div>
+      <div class="grade-card reveal">
+        <div class="grade-card-num">Grade 6</div>
+        <div class="grade-card-name">Data & AI</div>
+        <span class="grade-card-tag tag-blue">📊 Analyst</span>
+        <ul class="grade-card-topics">
+          <li>Data analysis basics</li>
+          <li>pandas introduction</li>
+          <li>AI tools & prompting</li>
+          <li>Real-world AI projects</li>
+          <li>Prompt engineering</li>
+        </ul>
+      </div>
+      <div class="grade-card reveal">
+        <div class="grade-card-num">Grade 7</div>
+        <div class="grade-card-name">Web & Apps</div>
+        <span class="grade-card-tag tag-blue">🌐 Developer</span>
+        <ul class="grade-card-topics">
+          <li>HTML basics</li>
+          <li>CSS styling</li>
+          <li>Build a webpage</li>
+          <li>How the internet works</li>
+          <li>Web project showcase</li>
+        </ul>
+      </div>
+      <div class="grade-card reveal">
+        <div class="grade-card-num">Grade 8</div>
+        <div class="grade-card-name">Applied AI</div>
+        <span class="grade-card-tag tag-blue">🤖 AI Builder</span>
+        <ul class="grade-card-topics">
+          <li>Training simple models</li>
+          <li>Working with APIs</li>
+          <li>Real-world AI projects</li>
+          <li>Data for AI</li>
+          <li>AI in Indian society</li>
+        </ul>
+      </div>
+      <div class="grade-card reveal">
+        <div class="grade-card-num">Grade 9</div>
+        <div class="grade-card-name">Capstone</div>
+        <span class="grade-card-tag tag-green">🏆 Graduate</span>
+        <ul class="grade-card-topics">
+          <li>Full project: design to launch</li>
+          <li>Pitching to an audience</li>
+          <li>Portfolio building</li>
+          <li>Career pathways in tech</li>
+          <li>Graduation showcase</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" style="background: var(--cream);">
+    <div class="how">
+      <div>
+        <div class="section-header reveal">
+          <span class="section-label">How It Works</span>
+          <h2 class="section-title">Simple for schools. Powerful for students.</h2>
+          <p class="section-sub">Village AI handles everything — teacher, curriculum, materials, and support. The school simply provides the classroom and the students.</p>
+        </div>
+        <div class="steps">
+          <div class="step reveal">
+            <div class="step-num">01</div>
+            <div>
+              <h4>We partner with your school</h4>
+              <p>Village AI meets with the principal, understands the school's setup, and agrees on the programme structure. No financial outlay from the school.</p>
+            </div>
+          </div>
+          <div class="step reveal">
+            <div class="step-num">02</div>
+            <div>
+              <h4>We deploy a trained IFSAI teacher</h4>
+              <p>One certified Village AI teacher is placed at each school branch. Your existing computer staff works alongside as support — and we pay their salary for that role.</p>
+            </div>
+          </div>
+          <div class="step reveal">
+            <div class="step-num">03</div>
+            <div>
+              <h4>IFSAI replaces the computer period</h4>
+              <p>No new period is added. IFSAI slots into the existing computer class. Zero timetable disruption. Zero hiring by the school.</p>
+            </div>
+          </div>
+          <div class="step reveal">
+            <div class="step-num">04</div>
+            <div>
+              <h4>Students learn, build, and present</h4>
+              <p>Every term ends with a showcase event where students present their projects to parents — building confidence alongside technical skills.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="how-visual">
+        <div class="model-card reveal">
+          <div class="model-card-title">What Village AI Provides</div>
+          <div class="model-row"><span class="model-row-label">Trained IFSAI Teacher</span><span class="model-row-badge">✓ Included</span></div>
+          <div class="model-row"><span class="model-row-label">Complete Curriculum (Gr 1–9)</span><span class="model-row-badge">✓ Included</span></div>
+          <div class="model-row"><span class="model-row-label">Workbooks & Assessments</span><span class="model-row-badge">✓ Included</span></div>
+          <div class="model-row"><span class="model-row-label">Student Certificates</span><span class="model-row-badge">✓ Included</span></div>
+          <div class="model-row"><span class="model-row-label">Industry Seminar Access</span><span class="model-row-badge">✓ Included</span></div>
+          <div class="model-row"><span class="model-row-label">Showcase Event Support</span><span class="model-row-badge">✓ Included</span></div>
+          <div class="model-row"><span class="model-row-label">Marketing Kit & Co-branding</span><span class="model-row-badge">✓ Included</span></div>
+          <div class="model-row"><span class="model-row-label">Support Staff Salary</span><span class="model-row-badge">✓ We Pay</span></div>
+        </div>
+        <div class="model-card reveal">
+          <div class="model-card-title">What the School Provides</div>
+          <div class="model-row"><span class="model-row-label">Existing Computer Lab</span><span class="model-row-badge" style="background:rgba(212,150,10,0.12);color:var(--gold);">School</span></div>
+          <div class="model-row"><span class="model-row-label">Students (Grades 1–9)</span><span class="model-row-badge" style="background:rgba(212,150,10,0.12);color:var(--gold);">School</span></div>
+          <div class="model-row"><span class="model-row-label">Existing Computer Staff</span><span class="model-row-badge" style="background:rgba(212,150,10,0.12);color:var(--gold);">School</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEMINARS -->
+  <section class="seminars" id="seminars">
+    <div class="section-header reveal">
+      <span class="section-label">Industry Seminars</span>
+      <h2 class="section-title">Professionals from India's biggest tech companies — in your classroom.</h2>
+      <p class="section-sub">Every enrolled student gets access to live industry seminars from professionals at India's leading technology companies. Rural children meet the real world.</p>
+    </div>
+    <div class="seminar-logos reveal">
+      <div class="seminar-logo">Google</div>
+      <div class="seminar-logo">TCS</div>
+      <div class="seminar-logo">Infosys</div>
+      <div class="seminar-logo">Wipro</div>
+      <div class="seminar-logo">Microsoft</div>
+      <div class="seminar-logo">Amazon</div>
+    </div>
+    <div class="seminar-callout reveal">
+      <div class="seminar-callout-icon">🎤</div>
+      <div>
+        <h4>Why this matters for rural students</h4>
+        <p>A child in a village near Pune or Nagpur has never met a software engineer from Google. These seminars change that. When a child can see someone like them doing something extraordinary, they begin to believe they can too.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATE -->
+  <section id="certificate" style="background: var(--cream);">
+    <div class="cert-layout">
+      <div>
+        <div class="section-header reveal">
+          <span class="section-label">Recognition</span>
+          <h2 class="section-title">Every student earns a Village AI certificate.</h2>
+          <p class="section-sub">At the end of each academic year, every IFSAI student receives a digital Village AI certificate — a recognised credential that reflects real skills learned and real projects built.</p>
+        </div>
+        <ul class="grade-card-topics" style="font-size: 15px; color: var(--muted); line-height: 2; list-style: none; margin-top: 24px;">
+          <li style="display:flex;align-items:center;gap:10px;padding:4px 0;"><span style="color:var(--green);font-size:13px;">→</span> Issued digitally — shareable by parents and students</li>
+          <li style="display:flex;align-items:center;gap:10px;padding:4px 0;"><span style="color:var(--green);font-size:13px;">→</span> Grade-specific — reflects the programme completed</li>
+          <li style="display:flex;align-items:center;gap:10px;padding:4px 0;"><span style="color:var(--green);font-size:13px;">→</span> Recognised as a Village AI IFSAI credential</li>
+          <li style="display:flex;align-items:center;gap:10px;padding:4px 0;"><span style="color:var(--green);font-size:13px;">→</span> Presented at the annual Showcase Event</li>
+        </ul>
+      </div>
+      <div class="cert-visual reveal">
+        <div class="cert-header">
+          <div class="cert-org">Village AI — IFSAI Programme</div>
+          <div class="cert-title-big">Certificate of Completion</div>
+          <div class="cert-subtitle">Integrated Future Skills & AI Curriculum</div>
+        </div>
+        <div class="cert-divider"></div>
+        <div class="cert-body">
+          <p>This is to certify that</p>
+          <div class="cert-name">Avi Kumar</div>
+          <p>has successfully completed the IFSAI Programme</p>
+          <p class="cert-programme">Grade 4 — Python Beginners · Academic Year 2025–26</p>
+        </div>
+        <div class="cert-divider"></div>
+        <div class="cert-footer">
+          <div>
+            <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Programme Director</div>
+            <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--green-d);border-bottom:1.5px solid var(--ink);padding-bottom:2px;">Village AI</div>
+          </div>
+          <div class="cert-seal">VILLAGE<br>AI<br>✦</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR SCHOOLS -->
+  <section class="schools" id="schools">
+    <div class="section-header reveal">
+      <span class="section-label">For School Principals</span>
+      <h2 class="section-title">Why schools choose to partner with Village AI.</h2>
+      <p class="section-sub">Village AI is not an add-on. It is a complete upgrade to your computer programme — with no extra cost, no extra periods, and no disruption to your school's routine.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card reveal">
+        <span class="benefit-icon">👩‍🏫</span>
+        <h3>We Bring the Teacher</h3>
+        <p>A fully trained, certified IFSAI teacher is deployed to your school. Your existing computer staff works alongside as support — and Village AI pays their salary for that supporting role.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <span class="benefit-icon">📅</span>
+        <h3>Zero Timetable Disruption</h3>
+        <p>IFSAI replaces your existing computer period. Not one extra minute is added to the school day. No timetable changes. No new periods. Nothing to reorganise.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <span class="benefit-icon">💰</span>
+        <h3>No Financial Risk to School</h3>
+        <p>The school has no financial outlay. The programme is funded through a small activity fee collected from parents. The school retains an administration charge per student.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <span class="benefit-icon">📚</span>
+        <h3>Complete, Ready-Made Curriculum</h3>
+        <p>Every lesson plan, workbook, assessment, and project guide is provided by Village AI — printed and ready. Your school does not write a single page.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <span class="benefit-icon">🏅</span>
+        <h3>Your School Stands Apart</h3>
+        <p>Become the first school in your district to offer a structured AI and coding programme. Parents notice. Admissions reflect it. Your school leads instead of follows.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <span class="benefit-icon">🤝</span>
+        <h3>Founding Partner Status</h3>
+        <p>Pilot schools receive priority support, closest involvement in curriculum development, and the recognition of being founding partners of the Village AI programme.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div>
+          <span class="section-label">Get in Touch</span>
+          <h2 class="section-title" style="color:var(--white);font-size:clamp(24px,3vw,40px);">Ready to bring Village AI to your school?</h2>
+          <p style="font-size:15px;color:rgba(255,255,255,0.65);line-height:1.7;margin: 16px 0 32px;">Whether you are a school principal, a parent, or someone who believes in rural education — we would love to hear from you. Fill in the form and we will be in touch within 24 hours.</p>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📧</div>
+          <div>
+            <div class="contact-detail-label">Email</div>
+            <div class="contact-detail-value">dharmateja@villageaiedu.in</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📱</div>
+          <div>
+            <div class="contact-detail-label">WhatsApp</div>
+            <div class="contact-detail-value">+91 89780 94759</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <div>
+            <div class="contact-detail-label">Currently Serving</div>
+            <div class="contact-detail-value">AP & TG</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🕐</div>
+          <div>
+            <div class="contact-detail-label">Response Time</div>
+            <div class="contact-detail-value">Within 24 hours</div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form-wrap reveal">
+        <div id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" id="fname" placeholder="Full name" />
+            </div>
+            <div class="form-group">
+              <label>Mobile Number</label>
+              <input type="tel" id="fphone" placeholder="+91 XXXXX XXXXX" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>School Name</label>
+            <input type="text" id="fschool" placeholder="Name of your school" />
+          </div>
+          <div class="form-group">
+            <label>Your Role</label>
+            <select id="frole">
+              <option value="">Select your role</option>
+              <option>School Principal / Management</option>
+              <option>Teacher</option>
+              <option>Parent</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Message (Optional)</label>
+            <textarea id="fmessage" placeholder="Any questions or details you'd like to share..."></textarea>
+          </div>
+          <button class="btn-submit" onclick="handleSubmit()">Send Message →</button>
+        </div>
+        <div class="form-success" id="formSuccess">
+          <span class="form-success-icon">✅</span>
+          <h3>Thank you!</h3>
+          <p>We have received your message and will get back to you within 24 hours. We look forward to speaking with you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <div class="footer-logo">Village <span>AI</span></div>
+      <div class="footer-tagline">Empowering Rural Potential</div>
+    </div>
+    <div class="footer-copy">© 2025 Village AI. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // Sticky nav shadow
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Mobile menu
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Form submit
+    function handleSubmit() {
+      const name = document.getElementById('fname').value.trim();
+      const phone = document.getElementById('fphone').value.trim();
+      const school = document.getElementById('fschool').value.trim();
+      const role = document.getElementById('frole').value;
+
+      if (!name || !phone || !school || !role) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('formSuccess').classList.add('show');
+    }
+  </script>
+</body>
+</html>
