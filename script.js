@@ -21,19 +21,3 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// Form submit
-function handleSubmit() {
-    const name = document.getElementById('fname').value.trim();
-    const phone = document.getElementById('fphone').value.trim();
-    const school = document.getElementById('fschool').value.trim();
-    const role = document.getElementById('frole').value;
-
-    if (!name || !phone || !school || !role) {
-    alert('Please fill in all required fields.');
-    return;
-    }
-
-    document.getElementById('contactForm').style.display = 'none';
-    document.getElementById('formSuccess').classList.add('show');
-}
