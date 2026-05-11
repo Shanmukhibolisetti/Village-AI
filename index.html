@@ -503,24 +503,24 @@
         </div>
       </div>
       <div class="contact-form-wrap reveal">
-        <form action="https://formsubmit.co/dharmatej@villageaiedu.in" method="POST">
+        <form id="contactForm">
           <div class="form-row">
             <div class="form-group">
               <label>Your Name</label>
-              <input type="text" name="fname" placeholder="Full name" />
+              <input type="text" id="fname" name="name" placeholder="Full name" />
             </div>
             <div class="form-group">
               <label>Mobile Number</label>
-              <input type="tel" name="fphone" placeholder="+91 XXXXX XXXXX" />
+              <input type="tel" id="fphone" name="phone" placeholder="+91 XXXXX XXXXX" />
             </div>
           </div>
           <div class="form-group">
             <label>School Name</label>
-            <input type="text" name="fschool" placeholder="Name of your school" />
+            <input type="text" id="fschool" name="school" placeholder="Name of your school" />
           </div>
           <div class="form-group">
             <label>Your Role</label>
-            <select name="frole">
+            <select id="frole" name="role">
               <option value="">Select your role</option>
               <option>School Principal / Management</option>
               <option>Teacher</option>
@@ -530,9 +530,9 @@
           </div>
           <div class="form-group">
             <label>Message (Optional)</label>
-            <textarea name="fmessage" placeholder="Any questions or details you'd like to share..."></textarea>
+            <textarea id="fmessage" name="message" placeholder="Any questions or details you'd like to share..."></textarea>
           </div>
-          <button class="btn-submit" onclick="handleSubmit()">Send Message →</button>
+          <button class="btn-submit" type="submit">Send Message →</button>
         </form>
         <div class="form-success" id="formSuccess">
           <span class="form-success-icon">✅</span>
