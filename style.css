@@ -20,7 +20,7 @@ body {
     font-family: 'DM Sans', sans-serif;
     background: var(--cream);
     color: var(--ink);
-    overflow-x: clip;
+    overflow-x: hidden;
     width: 100%;
 }
 
@@ -738,6 +738,23 @@ footer {
 
         border-bottom: 1px solid rgba(0,0,0,0.06);
     }
+
+    /* FIX FLOAT BADGES */
+
+.float-badge-1 {
+    right: 0;
+    top: -30px;
+}
+
+.float-badge-2 {
+    left: 0;
+    bottom: -35px;
+}
+
+.float-badge {
+    max-width: calc(100vw - 40px);
+    white-space: normal;
+}
 
     .nav-cta {
         margin-top: 10px;
