@@ -616,15 +616,16 @@ footer {
     .hero {
         grid-template-columns: 1fr;
         min-height: auto;
-        padding: 110px 20px 50px;
+        padding: 90px 16px 40px;
         gap: 30px;
         text-align: center;
     }
 
     .hero-content {
+        width: 100%;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
     }
 
     .hero-title {
@@ -633,23 +634,20 @@ footer {
     }
 
     .hero-sub {
-        font-size: 15px;
         max-width: 100%;
-        margin: 0 auto 28px;
     }
 
     .hero-buttons {
-        justify-content: center;
-        gap: 12px;
+        width: 100%;
     }
 
     .btn-primary,
     .btn-secondary {
         width: 100%;
-        justify-content: center;
-        text-align: center;
-        padding: 14px 18px;
+        max-width: 280px;
+        margin: 0 auto;
     }
+
 
     .hero-visual {
         width: 100%;
@@ -658,6 +656,7 @@ footer {
     }
 
     .hero-card {
+        width: 100%;
         padding: 22px;
         border-radius: 18px;
     }
