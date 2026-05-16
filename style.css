@@ -610,7 +610,133 @@ footer {
 
 /* ─── BETTER MOBILE RESPONSIVE FIXES ─── */
 
-@media (max-width: 1100px) {
+/* ─── MOBILE STACK FIXES ─── */
+
+/* ─── MOBILE STACK FIXES ─── */
+
+@media (max-width: 900px) {
+
+    /* HOW IT WORKS */
+
+    .how {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .steps {
+        width: 100%;
+    }
+
+    .step {
+        gap: 14px;
+        align-items: flex-start;
+    }
+
+    .step h4 {
+        font-size: 18px;
+        line-height: 1.4;
+    }
+
+    .step p {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .how-visual {
+        width: 100%;
+    }
+
+    .model-card {
+        width: 100%;
+        padding: 20px;
+        overflow: hidden;
+    }
+
+    .model-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+
+    /* RECOGNITION */
+
+    .cert-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .cert-visual {
+        width: 100%;
+        padding: 24px 18px;
+        overflow: hidden;
+    }
+
+    .cert-title-big {
+        font-size: 22px;
+    }
+
+    .cert-name {
+        font-size: 22px;
+        word-break: break-word;
+    }
+
+    .cert-footer {
+        gap: 16px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+
+    /* CONTACT */
+
+    .contact-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .contact-info {
+        width: 100%;
+    }
+
+    .contact-form-wrap {
+        width: 100%;
+        padding: 24px 18px;
+        overflow: hidden;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-detail {
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .contact {
+        overflow-x: hidden;
+    }
+
+
+    /* GENERAL WIDTH FIXES */
+
+    .how,
+    .cert-layout,
+    .contact-grid,
+    .model-card,
+    .cert-visual,
+    .contact-form-wrap {
+        min-width: 0;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 900px) {
 
     nav {
         padding: 0 20px;
