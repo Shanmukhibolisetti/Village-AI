@@ -21,6 +21,7 @@ body {
     background: var(--cream);
     color: var(--ink);
     overflow-x: hidden;
+    width: 100%;
 }
 
 /* ─── SCROLLBAR ─── */
@@ -52,7 +53,8 @@ nav.scrolled { box-shadow: 0 4px 32px rgba(27,107,58,0.1); }
 }
 
 .village-ai-logo {
-    width: 250px;
+    width: 180px;
+    max-width: 100%;
     height: auto;
 }
 .nav-links { display: flex; gap: 32px; list-style: none; }
@@ -677,34 +679,36 @@ footer {
     }
 
     .nav-links {
+
+        display: flex;
+        flex-direction: column;
+
         position: fixed;
 
         top: 64px;
         right: -100%;
 
-        width: 260px;
+        width: 240px;
+        max-width: 80vw;
+
         height: calc(100vh - 64px);
+
+        padding: 24px 20px;
 
         background: rgba(250,247,242,0.98);
 
         backdrop-filter: blur(12px);
 
-        flex-direction: column;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.08);
 
-        align-items: flex-start;
-
-        gap: 6px;
-
-        padding: 28px 24px;
+        gap: 8px;
 
         transition: right 0.3s ease;
 
-        box-shadow: -10px 0 30px rgba(0,0,0,0.08);
-
         z-index: 1000;
 
-        display: flex;
-    }
+        overflow-y: auto;
+        }
 
     .nav-links.open {
         right: 0;
