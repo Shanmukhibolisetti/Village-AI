@@ -30,7 +30,7 @@
       <li><a href="#schools">For Schools</a></li>
       <li><a href="#contact" class="nav-cta">Partner With Us</a></li>
     </ul>
-    <div class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Toggle menu">
+    <div class="hamburger" id="hamburger" onclick="toggleMenu(event)" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </div>
   </nav>
@@ -56,15 +56,52 @@
       <div class="hero-card">
         <div class="hero-card-label">IFSAI Programme — Grades Covered</div>
         <div class="grade-grid">
-          <div class="grade-pill">Grade 1<span>Digital Foundations</span></div>
-          <div class="grade-pill">Grade 2<span>Digital Explorers</span></div>
-          <div class="grade-pill">Grade 3<span>Tech Creators</span></div>
-          <div class="grade-pill">Grade 4<span>Python Beginners</span></div>
-          <div class="grade-pill">Grade 5<span>Python Intermediate</span></div>
-          <div class="grade-pill">Grade 6<span>Data & AI</span></div>
-          <div class="grade-pill">Grade 7<span>Web & Apps</span></div>
-          <div class="grade-pill">Grade 8<span>Applied AI</span></div>
-          <div class="grade-pill">Grade 9<span>Capstone</span></div>
+
+          <a href="#grade1" class="grade-pill">
+            Grade 1
+            <span>Digital Foundations</span>
+          </a>
+
+          <a href="#grade2" class="grade-pill">
+            Grade 2
+            <span>Digital Explorers</span>
+          </a>
+
+          <a href="#grade3" class="grade-pill">
+            Grade 3
+            <span>Tech Creators</span>
+          </a>
+
+          <a href="#grade4" class="grade-pill">
+            Grade 4
+            <span>Python Beginners</span>
+          </a>
+
+          <a href="#grade5" class="grade-pill">
+            Grade 5
+            <span>Python Intermediate</span>
+          </a>
+
+          <a href="#grade6" class="grade-pill">
+            Grade 6
+            <span>Data & AI</span>
+          </a>
+
+          <a href="#grade7" class="grade-pill">
+            Grade 7
+            <span>Web & Apps</span>
+          </a>
+
+          <a href="#grade8" class="grade-pill">
+            Grade 8
+            <span>Applied AI</span>
+          </a>
+
+          <a href="#grade9" class="grade-pill">
+            Grade 9
+            <span>Capstone</span>
+          </a>
+
         </div>
         <div class="hero-stats">
           <div class="hero-stat">
@@ -182,7 +219,7 @@
       <p class="section-sub">Every grade builds on the one before it. A child who joins in Grade 1 graduates Grade 9 ready to enter any technology field — or build their own.</p>
     </div>
     <div class="grades-grid">
-      <div class="grade-card reveal">
+      <div class="grade-card reveal" id="grade1">
         <div class="grade-card-num">Grade 1</div>
         <div class="grade-card-name">Digital Foundations</div>
         <span class="grade-card-tag tag-green">🌱 Beginner</span>
@@ -194,7 +231,7 @@
           <li>Digital safety</li>
         </ul>
       </div>
-      <div class="grade-card reveal">
+      <div class="grade-card reveal" id="grade2">
         <div class="grade-card-num">Grade 2</div>
         <div class="grade-card-name">Digital Explorers</div>
         <span class="grade-card-tag tag-green">🔭 Foundation</span>
@@ -206,7 +243,7 @@
           <li>Digital citizenship</li>
         </ul>
       </div>
-      <div class="grade-card reveal">
+      <div class="grade-card reveal" id="grade3">
         <div class="grade-card-num">Grade 3</div>
         <div class="grade-card-name">Tech Creators</div>
         <span class="grade-card-tag tag-gold">🛠️ Creator</span>
@@ -218,7 +255,7 @@
           <li>MS Word</li>
         </ul>
       </div>
-      <div class="grade-card reveal">
+      <div class="grade-card reveal" id="grade4">
         <div class="grade-card-num">Grade 4</div>
         <div class="grade-card-name">Python Beginners</div>
         <span class="grade-card-tag tag-gold">🐍 Coder</span>
@@ -230,7 +267,7 @@
           <li>MS Excel</li>
         </ul>
       </div>
-      <div class="grade-card reveal">
+      <div class="grade-card reveal" id="grade5">
         <div class="grade-card-num">Grade 5</div>
         <div class="grade-card-name">Python Intermediate</div>
         <span class="grade-card-tag tag-gold">🐍 Builder</span>
@@ -242,7 +279,7 @@
           <li>MS PowerPoint</li>
         </ul>
       </div>
-      <div class="grade-card reveal">
+      <div class="grade-card reveal" id="grade6">
         <div class="grade-card-num">Grade 6</div>
         <div class="grade-card-name">Data & AI</div>
         <span class="grade-card-tag tag-blue">📊 Analyst</span>
@@ -254,7 +291,7 @@
           <li>Prompt engineering</li>
         </ul>
       </div>
-      <div class="grade-card reveal">
+      <div class="grade-card reveal" id="grade7">
         <div class="grade-card-num">Grade 7</div>
         <div class="grade-card-name">Web & Apps</div>
         <span class="grade-card-tag tag-blue">🌐 Developer</span>
@@ -266,7 +303,7 @@
           <li>Web project showcase</li>
         </ul>
       </div>
-      <div class="grade-card reveal">
+      <div class="grade-card reveal" id="grade8">
         <div class="grade-card-num">Grade 8</div>
         <div class="grade-card-name">Applied AI</div>
         <span class="grade-card-tag tag-blue">🤖 AI Builder</span>
@@ -278,7 +315,7 @@
           <li>AI in Indian society</li>
         </ul>
       </div>
-      <div class="grade-card reveal">
+      <div class="grade-card reveal" id="grade9">
         <div class="grade-card-num">Grade 9</div>
         <div class="grade-card-name">Capstone</div>
         <span class="grade-card-tag tag-green">🏆 Graduate</span>

@@ -182,6 +182,7 @@ nav.scrolled { box-shadow: 0 4px 32px rgba(27,107,58,0.1); }
     padding: 10px 8px; text-align: center;
     font-size: 13px; font-weight: 600; color: var(--green-d);
     transition: background .2s, transform .2s;
+    text-decoration: none;
 }
 .grade-pill:hover { background: rgba(27,107,58,0.12); transform: scale(1.04); }
 .grade-pill span { display: block; font-size: 10px; color: var(--muted); font-weight: 400; margin-top: 2px; }
